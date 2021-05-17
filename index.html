@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TDL</title>
+</head>
+<body>
+   <form action="" method="post">
+      <label for="">Entrer votre phrase</label><br>
+      <textarea name="text" id="" cols="30" rows="10"></textarea>
+      <input type="submit" value="Définir la langue" id="submit">
+   </form>
+
+   <div id="result">
+
+   </div>
+
+   <script>
+      let submitBtn = document.querySelector('#submit');
+      let inputText = document.querySelector('textarea');
+
+      submitBtn.onclick = (e) => {
+         e.preventDefault();
+         let xhr = new window.XMLHttpRequest();
+   
+         xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+               let result = document.querySelector('#result');
+               result.innerHTML = xhr.responseText;
+            }
+         };
+   
+         xhr.open('POST', 'result.php', true);
+
+         let formData = new FormData();
+         formData.append('text', inputText.value);
+         xhr.send(formData);
+      }
+   </script>
+</body>
+</html>
